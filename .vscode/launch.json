@@ -12,10 +12,17 @@
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-App<HTW_Prog2_VSCode_b95f0c88>",
+            "name": "Debug (Launch)-Challenge 1",
             "request": "launch",
-            "mainClass": "App",
-            "projectName": "HTW_Prog2_VSCode_b95f0c88"
+            "mainClass": "Challenge1",
+            "projectName": "HTW_Prog2_7c97ebc1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Challenge 2",
+            "request": "launch",
+            "mainClass": "Challenge2",
+            "projectName": "HTW_Prog2_7c97ebc1"
         }
     ]
 }
