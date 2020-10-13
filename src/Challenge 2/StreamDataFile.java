@@ -1,4 +1,3 @@
-
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +9,7 @@ import java.io.OutputStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Challenge2 {
+public class StreamDataFile {
     public static void main(String[] args) {
         writeFile();
         readFile();
