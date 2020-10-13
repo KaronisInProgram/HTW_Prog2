@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TCPClient",
+            "request": "launch",
+            "mainClass": "client.TCPClient",
+            "projectName": "HTW_Prog2_7c97ebc1"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TCPServer",
             "request": "launch",
             "mainClass": "server.TCPServer",
