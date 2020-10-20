@@ -6,20 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - TCPClient",
-            "request": "launch",
-            "mainClass": "client.TCPClient",
-            "projectName": "HTW_Prog2_7c97ebc1"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - TCPServer",
-            "request": "launch",
-            "mainClass": "server.TCPServer",
-            "projectName": "HTW_Prog2_7c97ebc1"
-        },
-        {
-            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -40,10 +26,35 @@
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-Challenge 2 (TCP)",
+            "name": "Debug (Launch) - Challange3 - Server (Messages)",
             "request": "launch",
-            "mainClass": "server.TCPServer",
-            "projectName": "HTW_Prog2_7c97ebc1"
+            "mainClass": "Messages",
+            "projectName": "HTW_Prog2_7c97ebc1",
+            "args": "9999"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Challange3 - Client (Messages)",
+            "request": "launch",
+            "mainClass": "Messages",
+            "projectName": "HTW_Prog2_7c97ebc1",
+            "args": "9999 localhost"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Challange3 - Server (File)",
+            "request": "launch",
+            "mainClass": "File",
+            "projectName": "HTW_Prog2_7c97ebc1",
+            "args": "9999"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Challange3 - Client (File)",
+            "request": "launch",
+            "mainClass": "File",
+            "projectName": "HTW_Prog2_7c97ebc1",
+            "args": "9999 localhost \"src\\Challenge 3\\data\\test.txt\""
         }
     ]
 }

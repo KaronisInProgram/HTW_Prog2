@@ -1,93 +1,68 @@
 package server;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class TCPServer {
 
-    public static void main(String[] args) {
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+    private DataOutputStream out;
+    private DataInputStream in;
 
-        int port = readPortArg(args);
-
-        System.out.println("Port: " + port);
-        System.out.println("Start Server...");
-
-        startServer(port);
-
+    public String receiveMessage() throws IOException {
+        System.out.println("TCPServer.receiveMessage()");
+        return in.readUTF();
     }
 
-    private static int readPortArg(String[] args) {
-        String portArg = "";
-        try {
-            portArg = args[0];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Please set the Argument 0 - Port (example 12345)");
-            System.exit(0);
-        }
-
-        int port = Integer.parseInt(portArg);
-        return port;
+    public void sendMessage(String msg) throws IOException {
+        System.out.println("TCPServer.sendMessage()");
+        out.writeUTF(msg);
     }
 
-    private static void startServer(int port) {
-        try {
-            ServerSocket server = new ServerSocket(port);
-            Socket socket = awaitConnection(server);
+    public void receiveFile() throws IOException {
+        System.out.println("TCPServer.receiveFile()");
 
-            readMessage(socket);
-            writeMessage(socket, "Message from Server, Hey! ;-)");
+        String filename = in.readUTF();
+        String fileNameEnding = filename.substring(filename.lastIndexOf("."), filename.length());
+        filename = filename.replace(fileNameEnding, "-copy" + fileNameEnding);
+        FileOutputStream fos = new FileOutputStream(filename);
 
-            System.out.println("Wait for 5 seconds!");
-            Thread.sleep(5000);
+        int read = 0;
+        do {
+            read = in.read();
+            if (read != -1) {
+                fos.write(read);
+            }
 
-            System.out.println("Close connection!");
-            socket.close();
-            server.close();
+        } while (read != -1);
 
-        } catch (IOException e) {
-            System.err.println("Can't write IO");
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            System.err.println("Thread was interrupted");
-            e.printStackTrace();
-        }
+        fos.close();
     }
 
-    private static Socket awaitConnection(ServerSocket server) throws IOException {
-        System.out.println("Wait for TCP-Connection!");
-        Socket socket = server.accept();
-        System.out.println("TCP-Connection established!");
-
-        return socket;
+    public String receiveSensorData() throws IOException {
+        System.out.println("TCPServer.receiveSensorData()");
+        return in.readUTF();
     }
 
-    private static void readMessage(Socket socket) throws IOException {
-        System.out.println("Read message - Start!");
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-        StringBuilder message = new StringBuilder();
-        while (bufferedReader.ready()) {
-
-            message.append(bufferedReader.readLine() + System.lineSeparator());
-        }
-
-        System.out.println(message.toString());
-        System.out.println("Read message - End!");
+    public void start(int port) throws IOException {
+        System.out.println("TCPServer.start() - Start connection!");
+        serverSocket = new ServerSocket(port);
+        clientSocket = serverSocket.accept();
+        out = new DataOutputStream(clientSocket.getOutputStream());
+        in = new DataInputStream(clientSocket.getInputStream());
     }
 
-    private static void writeMessage(Socket socket, String message) throws IOException {
-        System.out.println("Write message - Start!");
-
-        PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-        printWriter.print(message);
-        printWriter.flush();
-
-        System.out.println("Write message - End!");
+    public void stop() throws IOException {
+        System.out.println("TCPServer.stop() - Close connection!");
+        in.close();
+        out.close();
+        clientSocket.close();
+        serverSocket.close();
     }
+
 }
