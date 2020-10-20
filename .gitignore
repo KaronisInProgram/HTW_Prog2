@@ -27,8 +27,11 @@ hs_err_pid*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-!.vscode/extensions.json
+!.vscode/extensions.jsons
 *.code-workspace
 
 # Local History for Visual Studio Code
 .history/
+
+# No pure data-files in Git
+data
