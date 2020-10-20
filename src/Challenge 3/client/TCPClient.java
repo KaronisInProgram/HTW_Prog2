@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class TCPClient {
 
@@ -15,11 +14,13 @@ public class TCPClient {
 
     public String receiveMessage() throws IOException {
         System.out.println("TCPClient.receiveMessage()");
+
         return in.readUTF();
     }
 
     public void sendMessage(String msg) throws IOException {
         System.out.println("TCPClient.sendMessage()");
+
         out.writeUTF(msg);
     }
 
@@ -44,10 +45,15 @@ public class TCPClient {
 
     public void sendSensorData() throws IOException {
         System.out.println("TCPClient.sendSensorData()");
+
+        out.writeLong(System.currentTimeMillis());
+        out.writeFloat(13.4f);
+        out.writeUTF("HomeSensor 1000");
     }
 
-    public void startConnection(String ip, int port) throws UnknownHostException, IOException {
+    public void startConnection(String ip, int port) throws IOException {
         System.out.println("TCPClient.startConnection() - Start connection!");
+
         clientSocket = new Socket(ip, port);
         out = new DataOutputStream(clientSocket.getOutputStream());
         in = new DataInputStream(clientSocket.getInputStream());

@@ -3,28 +3,21 @@ import java.io.IOException;
 import client.TCPClient;
 import server.TCPServer;
 
-public class Messages {
+public class SensorData {
     public static void main(String[] args) throws IOException {
 
-        System.out.println("Implementation of Messages");
+        System.out.println("Implementation of SensorData");
         if (args.length == 1) {
             TCPServer server = new TCPServer();
             server.start(readPortArg(args));
-
-            String response = server.receiveMessage();
-            System.out.println(response);
-            server.sendMessage("hello client - from server");
-
+            String data = server.receiveSensorData();
+            System.out.println(data);
             server.stop();
 
         } else if (args.length == 2) {
             TCPClient client = new TCPClient();
             client.startConnection(readHostArg(args), readPortArg(args));
-
-            client.sendMessage("hello server - from client");
-            String response = client.receiveMessage();
-            System.out.println(response);
-
+            client.sendSensorData();
             client.stopConnection();
 
         } else {
@@ -38,7 +31,7 @@ public class Messages {
         try {
             portArg = args[0];
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Please set the Argument 0 [required] - Port (example 12345)");
+            System.err.println("Please set the Argument 1 [required] - Port (example 12345)");
             System.exit(0);
         }
 
@@ -52,9 +45,10 @@ public class Messages {
             hostArg = args[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err
-                    .println("Please set the Argument 1 [required for client] - Host (example localhost, htw-berlin)");
+                    .println("Please set the Argument 2 [required for client] - Host (example localhost, htw-berlin)");
             System.exit(0);
         }
         return hostArg;
     }
+
 }

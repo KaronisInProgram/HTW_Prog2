@@ -16,11 +16,13 @@ public class TCPServer {
 
     public String receiveMessage() throws IOException {
         System.out.println("TCPServer.receiveMessage()");
+
         return in.readUTF();
     }
 
     public void sendMessage(String msg) throws IOException {
         System.out.println("TCPServer.sendMessage()");
+
         out.writeUTF(msg);
     }
 
@@ -46,11 +48,21 @@ public class TCPServer {
 
     public String receiveSensorData() throws IOException {
         System.out.println("TCPServer.receiveSensorData()");
-        return in.readUTF();
+
+        long milliseconds = in.readLong();
+        float temperatur = in.readFloat();
+        String name = in.readUTF();
+
+        String response = "Milliseconds since midnight, January 1, 1970 UTC: " + milliseconds + System.lineSeparator();
+        response += "Temperatur: " + temperatur + " °C" + System.lineSeparator();
+        response += "Sensorname: " + name;
+
+        return response;
     }
 
     public void start(int port) throws IOException {
         System.out.println("TCPServer.start() - Start connection!");
+
         serverSocket = new ServerSocket(port);
         clientSocket = serverSocket.accept();
         out = new DataOutputStream(clientSocket.getOutputStream());
@@ -59,6 +71,7 @@ public class TCPServer {
 
     public void stop() throws IOException {
         System.out.println("TCPServer.stop() - Close connection!");
+
         in.close();
         out.close();
         clientSocket.close();

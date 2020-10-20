@@ -1,11 +1,10 @@
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 import client.TCPClient;
 import server.TCPServer;
 
 public class File {
-    public static void main(String[] args) throws UnknownHostException, IOException {
+    public static void main(String[] args) throws IOException {
 
         System.out.println("Implementation of File");
         if (args.length == 1) {
