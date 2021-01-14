@@ -12,14 +12,14 @@
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-Challenge 1",
+            "name": "Debug (Launch) - Challenge 1",
             "request": "launch",
             "mainClass": "Challenge1",
             "projectName": "HTW_Prog2_7c97ebc1"
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-Challenge 2 (Stream, Data, File)",
+            "name": "Debug (Launch) - Challenge 2 (Stream, Data, File)",
             "request": "launch",
             "mainClass": "StreamDataFile",
             "projectName": "HTW_Prog2_7c97ebc1"
